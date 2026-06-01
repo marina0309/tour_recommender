@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рекомендатор туров</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .filters { background: #f0f0f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .tour-card { border: 1px solid #ccc; margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .rating-slider { margin-top: 10px; }
+        button { background: #2c7a4d; color: white; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; }
+        .tour-container { display: flex; flex-wrap: wrap; gap: 20px; }
+        .tour-card { width: 300px; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+    <h1>🌍 Подберите тур</h1>
+    <div class="filters">
+        <h3>Параметры</h3>
+        <label>Макс. бюджет (руб): <input type="number" id="budget" value="200000"></label><br>
+        <label>Длительность от: <input type="number" id="dur_min" value="3"> до: <input type="number" id="dur_max" value="14"></label><br>
+        <label>Сезоны: 
+            <select id="seasons" multiple size="4">
+                <option value="лето">Лето</option>
+                <option value="осень">Осень</option>
+                <option value="зима">Зима</option>
+                <option value="весна">Весна</option>
+            </select>
+        </label><br>
+        <label>Тип группы: 
+            <select id="group_type">
+                <option value="">Любой</option>
+                <option value="соло">Соло</option>
+                <option value="пара">Пара</option>
+                <option value="семья с детьми">Семья с детьми</option>
+                <option value="компания друзей">Компания друзей</option>
+            </select>
+        </label><br>
+        <button id="searchBtn">Найти туры</button>
+    </div>
+    <div id="results" class="tour-container"></div>
+
+    <script>
+        let toursData = []; // все туры из CSV
+        
+        // Загрузка CSV
+        async function loadTours() {
+            const response = await fetch('tours.csv');
+            const text = await response.text();
+            // Простой парсинг CSV с разделителем ;
+            const lines = text.split('\n');
+            const headers = lines[0].split(';').map(h => h.trim());
+            toursData = lines.slice(1).filter(l => l.trim()).map(line => {
+                const values = line.split(';');
+                let obj = {};
+                headers.forEach((h, idx) => {
+                    obj[h] = values[idx]?.trim() || '';
+                });
+                // Преобразуем теги в массив
+                obj['список_тегов'] = obj['список_тегов'] ? obj['список_тегов'].split(',').map(t => t.trim()) : [];
+                // Цена и длительность - числа
+                obj['стоимость_руб_чел'] = parseInt(obj['стоимость_руб_чел']) || 0;
+                obj['длительность_дни'] = parseInt(obj['длительность_дни']) || 0;
+                return obj;
+            });
+            console.log('Загружено туров:', toursData.length);
+            // По умолчанию показать первые 10 (или позже вызовем поиск)
+        }
+
+        function filterTours() {
+            const budget = parseInt(document.getElementById('budget').value) || Infinity;
+            const durMin = parseInt(document.getElementById('dur_min').value) || 0;
+            const durMax = parseInt(document.getElementById('dur_max').value) || 999;
+            const seasonsSelect = document.getElementById('seasons');
+            const selectedSeasons = Array.from(seasonsSelect.selectedOptions).map(opt => opt.value);
+            const groupType = document.getElementById('group_type').value;
+            
+            return toursData.filter(tour => {
+                if (tour.стоимость_руб_чел > budget) return false;
+                if (tour.длительность_дни < durMin || tour.длительность_дни > durMax) return false;
+                // Проверка сезонов: сезон тура — строка типа "лето, осень"
+                const tourSeasons = tour['сезон'].split(',').map(s => s.trim());
+                if (selectedSeasons.length && !selectedSeasons.some(s => tourSeasons.includes(s))) return false;
+                // Проверка типа группы
+                if (groupType) {
+                    const tourGroupTypes = tour['тип_группы'].split(',').map(g => g.trim());
+                    if (!tourGroupTypes.includes(groupType)) return false;
+                }
+                return true;
+            });
+        }
+
+        function renderTours(tours) {
+            const container = document.getElementById('results');
+            container.innerHTML = '';
+            if (tours.length === 0) {
+                container.innerHTML = '<p>Нет туров, подходящих под ваши критерии.</p>';
+                return;
+            }
+            tours.forEach(tour => {
+                const card = document.createElement('div');
+                card.className = 'tour-card';
+                card.innerHTML = `
+                    <h3>${tour['название']}</h3>
+                    <p>${tour['страна']} ${tour['регион'] ? '('+tour['регион']+')' : ''}</p>
+                    <p>💰 ${tour.стоимость_руб_чел} руб. | 📅 ${tour.длительность_дни} дней</p>
+                    <p>🏷️ ${tour['список_тегов'].slice(0,5).join(', ')}${tour['список_тегов'].length>5 ? '…' : ''}</p>
+                    <div class="rating-slider">
+                        <label>Оценка (1-10): <input type="range" min="1" max="10" value="5" data-id="${tour.id}"></label>
+                        <span class="rating-value">5</span>
+                    </div>
+                `;
+                const slider = card.querySelector('input[type="range"]');
+                const valueSpan = card.querySelector('.rating-value');
+                slider.addEventListener('input', (e) => {
+                    valueSpan.textContent = e.target.value;
+                });
+                container.appendChild(card);
+            });
+        }
+
+        // Сохранение оценок (отправка в Google Apps Script)
+        async function saveAllRatings() {
+            const cards = document.querySelectorAll('.tour-card');
+            const ratings = [];
+            cards.forEach(card => {
+                const id = card.querySelector('input[type="range"]').dataset.id;
+                const rating = card.querySelector('input[type="range"]').value;
+                // Найдём данные тура
+                const tour = toursData.find(t => t.id == id);
+                if (tour) {
+                    ratings.push({
+                        user_budget: document.getElementById('budget').value,
+                        user_duration_min: document.getElementById('dur_min').value,
+                        user_duration_max: document.getElementById('dur_max').value,
+                        user_seasons: Array.from(document.getElementById('seasons').selectedOptions).map(o=>o.value).join(','),
+                        user_group_type: document.getElementById('group_type').value,
+                        tour_id: tour.id,
+                        tour_name: tour['название'],
+                        tour_country: tour['страна'],
+                        tour_duration: tour.длительность_дни,
+                        tour_price: tour.стоимость_руб_чел,
+                        rating: rating
+                    });
+                }
+            });
+            // Отправка
+            const scriptUrl = 'https://vk.com/away.php?to=https%3A%2F%2Fscript.google.com%2Fmacros%2Fs%2FAKfycbx7vcePJNfkOEplzW7qt-HbKK6luJ2yFQizAGmycmLjX9rBte02dHV01-MiKek102k%2Fexec&utf=1'; // вставьте сюда
+            for (let rating of ratings) {
+                await fetch(scriptUrl, {
+                    method: 'POST',
+                    mode: 'no-cors', // упрощённый режим для отправки без ожидания ответа
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(rating)
+                });
+            }
+            alert('Оценки сохранены!');
+        }
+
+        // Инициализация
+        window.onload = async () => {
+            await loadTours();
+            document.getElementById('searchBtn').addEventListener('click', () => {
+                const filtered = filterTours();
+                renderTours(filtered);
+            });
+            // Добавим кнопку "Сохранить оценки"
+            const saveBtn = document.createElement('button');
+            saveBtn.textContent = 'Сохранить все оценки';
+            saveBtn.style.marginTop = '20px';
+            saveBtn.addEventListener('click', saveAllRatings);
+            document.body.appendChild(saveBtn);
+            // Первоначальный поиск
+            document.getElementById('searchBtn').click();
+        };
+    </script>
+</body>
+</html>
