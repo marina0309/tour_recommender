@@ -848,7 +848,8 @@
                     tour_country: tour['страна'],
                     tour_duration: tour['длительность_дни'],
                     tour_price: tour['стоимость_руб_чел'],
-                    rating: rating
+                    rating: rating,
+                    similarity: tour.similarity || 0
                 });
             }
         });
