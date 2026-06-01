@@ -3,50 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Рекомендатель туров — подберите идеальное путешествие</title>
+    <title>Рекомендатель туров – путешествуйте осознанно</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(145deg, #eef2f9 0%, #d9e2ef 100%);
-            color: #1a2c3e;
+            background: linear-gradient(145deg, #d4e2e9 0%, #eaf3f0 100%);
+            color: #1e3b44;
             line-height: 1.5;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
             padding: 20px;
         }
 
-        /* Заголовок */
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
         }
         .header h1 {
             font-size: 2.4rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #0b3b3f, #1c6e6a);
+            background: linear-gradient(135deg, #1f6d5c, #3c9b85, #d9a13b);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             letter-spacing: -0.5px;
         }
         .header p {
-            color: #2c5a6e;
-            margin-top: 8px;
+            color: #2b6a6f;
+            font-size: 1.1rem;
             font-weight: 500;
         }
 
-        /* Две колонки */
         .two-columns {
             display: flex;
             gap: 30px;
@@ -55,52 +49,49 @@
         .filters-sidebar {
             flex: 1.2;
             min-width: 300px;
-            background: rgba(255,255,255,0.92);
-            backdrop-filter: blur(2px);
-            border-radius: 32px;
-            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.1);
-            padding: 24px;
-            height: fit-content;
+            background: rgba(255,248,235,0.92);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.15);
+            padding: 26px;
             position: sticky;
             top: 20px;
-            border: 1px solid rgba(255,255,255,0.5);
+            height: fit-content;
+            border: 1px solid rgba(255,215,170,0.6);
         }
         .results-area {
             flex: 2.8;
             min-width: 300px;
         }
 
-        /* Стили фильтров */
         .filter-group {
             margin-bottom: 28px;
-            border-bottom: 1px solid #cbdde6;
+            border-bottom: 1px solid #cfdfe6;
             padding-bottom: 20px;
         }
         .filter-group label {
             font-weight: 700;
             display: block;
             margin-bottom: 12px;
-            color: #0f4c5c;
+            color: #1b5e5e;
             font-size: 0.95rem;
         }
-        .filter-group label i {
-            width: 28px;
-            color: #1f8a7c;
-        }
+        .filter-group label i { width: 28px; color: #d9a13b; }
+
         input, select {
             width: 100%;
             padding: 10px 14px;
-            border-radius: 24px;
-            border: 1px solid #bdd4e2;
+            border-radius: 30px;
+            border: 1px solid #c2d6df;
             background: white;
             font-size: 0.9rem;
-            transition: 0.2s;
         }
         input:focus, select:focus {
             outline: none;
-            border-color: #1f8a7c;
-            box-shadow: 0 0 0 3px rgba(31,138,124,0.2);
+            border-color: #3c9b85;
+            box-shadow: 0 0 0 3px rgba(60,155,133,0.2);
         }
+
         .radio-group, .checkbox-group {
             display: flex;
             flex-wrap: wrap;
@@ -108,22 +99,19 @@
             margin-top: 8px;
         }
         .radio-group label, .checkbox-group label {
+            background: #f4ede3;
+            padding: 6px 18px;
+            border-radius: 40px;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             font-weight: normal;
-            background: #eef3fc;
-            padding: 6px 16px;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 0;
+            transition: 0.2s;
         }
-        .radio-group label:hover, .checkbox-group label:hover {
-            background: #dde6f0;
-        }
+        .radio-group label:hover, .checkbox-group label:hover { background: #e6d9cb; }
 
-        /* Стиль для тегов стран/направлений */
+        /* Кнопки стран/направлений */
         .tag-group {
             display: flex;
             flex-wrap: wrap;
@@ -131,151 +119,123 @@
             margin-top: 8px;
         }
         .tag-option {
-            background: #eef3fc;
+            background: #f4ede3;
             border-radius: 40px;
-            padding: 6px 18px;
+            padding: 7px 20px;
             font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.2s;
-            user-select: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            border: 1px solid transparent;
+            border: 1px solid #d9c9b2;
+            transition: 0.2s;
         }
-        .tag-option:hover {
-            background: #dfe8f2;
-            transform: translateY(-1px);
-        }
+        .tag-option:hover { background: #e3d4c0; transform: translateY(-2px); }
         .tag-option.selected {
-            background: #1f8a7c;
+            background: #3c9b85;
             color: white;
-            border-color: #0f5c4e;
-            box-shadow: 0 4px 8px rgba(31,138,124,0.3);
-        }
-        .tag-option i {
-            font-size: 12px;
+            border-color: #2c7a68;
+            box-shadow: 0 6px 12px rgba(60,155,133,0.3);
         }
 
-        /* Аккордеон для тегов интересов */
+        /* Аккордеон тегов (полный набор) */
         .tag-category {
             margin-bottom: 12px;
-            border: 1px solid #cbdde6;
-            border-radius: 24px;
+            border: 1px solid #cfdfe6;
+            border-radius: 28px;
             overflow: hidden;
             background: white;
         }
         .tag-category summary {
             font-weight: 700;
-            padding: 12px 18px;
-            background: #f6fafd;
+            padding: 12px 20px;
+            background: #fefcf9;
             cursor: pointer;
             list-style: none;
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .tag-category summary::-webkit-details-marker {
-            display: none;
-        }
+        .tag-category summary::-webkit-details-marker { display: none; }
         .tag-category summary::before {
             content: '\f054';
             font-family: 'Font Awesome 6 Free';
             font-weight: 900;
             font-size: 12px;
             transition: transform 0.2s;
-            margin-right: 8px;
-            color: #1f8a7c;
+            margin-right: 10px;
+            color: #d9a13b;
         }
-        .tag-category[open] summary::before {
-            transform: rotate(90deg);
-        }
+        .tag-category[open] summary::before { transform: rotate(90deg); }
         .tag-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            padding: 14px 18px;
+            gap: 10px;
+            padding: 16px 20px;
             background: white;
+            max-height: 260px;
+            overflow-y: auto;
         }
         .tag-item {
-            background: #eef3fc;
+            background: #f0f4e8;
             border-radius: 32px;
-            padding: 5px 14px;
+            padding: 5px 16px;
             font-size: 0.8rem;
             cursor: pointer;
-            transition: all 0.2s;
             display: inline-flex;
             align-items: center;
             gap: 6px;
         }
-        .tag-item.selected {
-            background: #1f8a7c;
-            color: white;
-        }
+        .tag-item.selected { background: #3c9b85; color: white; }
 
-        /* Кнопка поиска */
         .btn-primary {
-            background: linear-gradient(95deg, #1f8a7c, #0f5c4e);
-            border: none;
+            background: linear-gradient(95deg, #d9a13b, #b87c2e);
             width: 100%;
             padding: 14px;
             font-size: 1rem;
             font-weight: bold;
             color: white;
-            border-radius: 40px;
+            border: none;
+            border-radius: 50px;
             cursor: pointer;
-            transition: 0.2s;
-            margin-top: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+            margin-top: 12px;
+            transition: 0.2s;
         }
         .btn-primary:hover {
-            background: linear-gradient(95deg, #167a6c, #0d4e42);
+            background: linear-gradient(95deg, #c78b2d, #a06822);
             transform: translateY(-2px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
         }
 
         /* Карточки туров */
         .tour-card {
             background: white;
-            border-radius: 32px;
-            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-            margin-bottom: 28px;
+            border-radius: 36px;
+            box-shadow: 0 15px 30px -8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
             overflow: hidden;
-            transition: 0.2s;
+            transition: 0.25s;
         }
-        .tour-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 32px rgba(0,0,0,0.12);
-        }
+        .tour-card:hover { transform: translateY(-5px); box-shadow: 0 25px 40px -12px rgba(0,0,0,0.2); }
         .tour-header {
-            padding: 22px 26px 0 26px;
+            padding: 24px 28px 0 28px;
+            background: linear-gradient(120deg, #ffffff, #faf7f0);
         }
-        .tour-header h3 {
-            font-size: 1.55rem;
-            font-weight: 700;
-            color: #164554;
-        }
-        .tour-location {
-            color: #3d6e80;
-            margin: 8px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .tour-header h3 { font-size: 1.7rem; font-weight: 700; color: #1b5e5e; }
+        .tour-location { color: #d9a13b; margin: 8px 0; display: flex; align-items: center; gap: 8px; font-weight: 500; }
         .tour-details {
             display: flex;
             flex-wrap: wrap;
-            gap: 14px;
-            padding: 0 26px;
+            gap: 15px;
+            padding: 0 28px;
             margin: 14px 0;
         }
         .tour-details span {
-            background: #eef3fc;
-            padding: 4px 14px;
+            background: #eef3ea;
+            padding: 5px 16px;
             border-radius: 40px;
             font-size: 0.85rem;
             display: inline-flex;
@@ -283,107 +243,97 @@
             gap: 6px;
         }
         .tour-tags {
-            padding: 0 26px;
-            margin: 8px 0 12px;
+            padding: 0 28px;
+            margin: 12px 0;
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            max-height: 150px;
+            overflow-y: auto;
         }
         .tour-tag {
-            background: #e2eaf1;
-            border-radius: 24px;
-            padding: 4px 12px;
-            font-size: 0.7rem;
-            color: #1f5e6b;
+            background: #e5d9cc;
+            border-radius: 28px;
+            padding: 4px 14px;
+            font-size: 0.75rem;
+            color: #2b5a5a;
         }
         .rating-slider {
-            padding: 16px 26px 22px;
-            background: #fafeff;
-            border-top: 1px solid #d4e2ec;
+            padding: 18px 28px 24px;
+            background: #fefcf7;
+            border-top: 1px solid #e2d5c4;
             display: flex;
             align-items: center;
             gap: 20px;
             flex-wrap: wrap;
         }
-        .rating-slider label {
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        input[type="range"] {
-            flex: 2;
-            min-width: 180px;
-        }
+        .rating-slider label { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        input[type="range"] { flex: 2; min-width: 180px; }
         .rating-value {
-            background: #1f8a7c;
+            background: #d9a13b;
             color: white;
-            padding: 4px 12px;
+            padding: 4px 14px;
             border-radius: 30px;
             font-weight: bold;
         }
         .save-all-btn {
-            background: #0f4c5c;
+            background: #2c7a68;
             border: none;
-            padding: 12px 28px;
-            border-radius: 40px;
+            padding: 14px 28px;
+            border-radius: 50px;
             font-weight: bold;
             color: white;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             margin-top: 20px;
             width: 100%;
             transition: 0.2s;
         }
-        .save-all-btn:hover {
-            background: #0a3a46;
-        }
+        .save-all-btn:hover { background: #1f5f50; }
         .info-message {
-            background: #e5f0f5;
-            border-radius: 28px;
-            padding: 22px;
+            background: #e5f0e7;
+            border-radius: 36px;
+            padding: 28px;
             text-align: center;
             margin: 20px 0;
-            color: #1e5a6c;
+            color: #2a6b5e;
         }
         footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 60px;
             padding: 20px;
-            color: #3a7285;
+            color: #5b8c7a;
             font-size: 0.8rem;
         }
         @media (max-width: 800px) {
-            .filters-sidebar {
-                position: static;
-            }
+            .filters-sidebar { position: static; }
+            .tour-header h3 { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1><i class="fas fa-compass"></i> Рекомендательная система туров</h1>
-        <p>Найдите путешествие мечты — фильтры, интересы и честные оценки</p>
+        <h1><i class="fas fa-globe-americas"></i> Рекомендатель туров</h1>
+        <p>Найдите идеальное путешествие по вашим интересам и бюджету</p>
     </div>
 
     <div class="two-columns">
-        <!-- Блок фильтров -->
         <div class="filters-sidebar">
-            <h3 style="margin-top:0"><i class="fas fa-sliders-h"></i> Параметры поиска</h3>
+            <h3><i class="fas fa-sliders-h"></i> Параметры поиска</h3>
             
-            <!-- Выбор стран / направлений (теперь без select multiple) -->
+            <!-- География: страны или направления кнопками -->
             <div class="filter-group">
                 <label><i class="fas fa-globe"></i> География</label>
                 <div class="radio-group" id="countryChoice">
                     <label><input type="radio" name="countryChoice" value="countries" checked> Конкретные страны</label>
                     <label><input type="radio" name="countryChoice" value="directions"> Направления</label>
                 </div>
-                <div id="countriesContainer" style="margin-top:12px"></div>
-                <div id="directionsContainer" style="margin-top:12px; display:none;"></div>
+                <div id="countriesContainer" class="tag-group" style="margin-top:12px"></div>
+                <div id="directionsContainer" class="tag-group" style="margin-top:12px; display:none;"></div>
             </div>
 
             <div class="filter-group">
@@ -393,9 +343,9 @@
 
             <div class="filter-group">
                 <label><i class="fas fa-calendar-alt"></i> Длительность (дни)</label>
-                <div style="display: flex; gap: 10px;">
-                    <input type="number" id="durMin" value="3" placeholder="от" style="width:50%">
-                    <input type="number" id="durMax" value="14" placeholder="до" style="width:50%">
+                <div style="display: flex; gap: 12px;">
+                    <input type="number" id="durMin" value="3" placeholder="от">
+                    <input type="number" id="durMax" value="14" placeholder="до">
                 </div>
             </div>
 
@@ -443,68 +393,115 @@
             <div class="filter-group">
                 <label><i class="fas fa-tags"></i> Ваши интересы (теги)</label>
                 <div id="tagsAccordion"></div>
-                <small style="color:#3a7285">Выберите теги, которые вам близки — чем больше, тем точнее рекомендация</small>
+                <small style="color:#2b6a6f">Выберите теги, которые вам близки – чем больше, тем точнее рекомендация</small>
             </div>
 
             <button class="btn-primary" id="searchBtn"><i class="fas fa-search"></i> Найти туры</button>
         </div>
 
-        <!-- Результаты -->
         <div class="results-area">
             <div id="resultsContainer">
                 <div class="info-message"><i class="fas fa-info-circle"></i> Заполните параметры и нажмите «Найти туры»</div>
             </div>
         </div>
     </div>
-    <footer>
-        <i class="fas fa-chart-line"></i> Рекомендации на основе косинусного сходства ваших интересов и тегов туров
-    </footer>
+    <footer><i class="fas fa-chart-line"></i> Рекомендации на основе косинусного сходства выбранных тегов с тегами туров</footer>
 </div>
 
 <script>
-    // -------------------- Глобальные переменные --------------------
+    // ---------- Глобальные данные ----------
     let toursData = [];
     let allTagsList = [];
     let selectedTags = new Set();
-    
+
+    // Маппинг направлений
     const DIRECTION_MAP = {
         'россия': ['Россия'],
-        'азия': ['Турция', 'Таиланд', 'Вьетнам', 'Япония', 'Узбекистан', 'Индия', 'Китай',
-                 'Шри-Ланка', 'Южная Корея', 'Малайзия', 'Непал', 'Филиппины', 'Индонезия'],
+        'азия': ['Турция', 'Таиланд', 'Вьетнам', 'Япония', 'Узбекистан', 'Индия', 'Китай', 'Шри-Ланка', 'Южная Корея', 'Малайзия', 'Непал', 'Филиппины', 'Индонезия'],
         'африка': ['Кения', 'Танзания', 'ЮАР', 'Египет', 'Марокко'],
         'австралия и океания': ['Австралия', 'Новая Зеландия'],
         'мадагаскар': ['Мадагаскар']
     };
     const DIRECTION_DISPLAY = {
-        'россия': 'Россия',
-        'азия': 'Азия',
-        'африка': 'Африка',
-        'австралия и океания': 'Австралия и Океания',
-        'мадагаскар': 'Мадагаскар'
+        'россия': 'Россия', 'азия': 'Азия', 'африка': 'Африка',
+        'австралия и океания': 'Австралия и Океания', 'мадагаскар': 'Мадагаскар'
     };
 
-    // Категории тегов (сокращённо, но полные данные)
+    // ---------- ПОЛНЫЕ КАТЕГОРИИ ТЕГОВ (как в вашем исходном коде) ----------
     const TAG_CATEGORIES_RAW = {
-        "Активный отдых и экстрим": ["активный отдых","альпинизм","восхождение","дайвинг","рафтинг","скалолазание","трекинг","экстрим","серфинг","каякинг"],
-        "Природа и ландшафты": ["водопады","вулканы","горы","лес","озера","океан","пляж","пустыня","фьорды","северное сияние"],
-        "Животные и наблюдение": ["наблюдение животных","слоны","сафари","дельфины","медведи","лемуры","киты"],
-        "Культура и история": ["архитектура","история","музеи","храмы","монастыри","экскурсии","гид"],
-        "Гастрономия": ["вино","дегустации","сыр","национальная кухня","мастер-классы","рестораны"],
-        "Релакс и здоровье": ["спа","йога","термальные источники","релакс","сауна"],
-        "Город и развлечения": ["шопинг","ночная жизнь","парки","аквапарк","фестивали"],
-        "Тип поездки": ["романтический","семейный","соло","уединение"],
-        "Размещение и сервис": ["всё включено","экологичный"]
+        "Активный отдых и экстрим": [
+            "активный отдых","альпинизм","восхождение","выносливость","дайвинг","джиппинг",
+            "групповые занятия","катание на лыжах","кемпинг","коньки","костер","палатка",
+            "параплан","подледный дайвинг","поход","рафтинг","скалолазание","снегоходы",
+            "снорклинг","трекинг","хайкинг","экстрим","водные виды спорта","горные лыжи",
+            "каякинг","серфинг","выживание","зимние виды спорта","морские прогулки",
+            "плавание на лодках","подводная фотосъемка","рыбалка"
+        ],
+        "Природа и ландшафты": [
+            "альпийские луга","арктика","бамбуковые леса","баобабы","белый песок",
+            "бирюзовая вода","бухты","водопады","вулканы","гейзеры","горы","дикая природа",
+            "долины","закаты","каменный лес","каньоны","кораллы","красная земля","лагуны",
+            "лед","ледники","ледяные пещеры","лес","море","озера","океан","пещеры","пляж",
+            "пустыня","реки","рифы","саванна","скалы","снег","снежники","суровая природа",
+            "тропические леса","флора и фауна","фьорды","холмы","холод","цветение","экотропы",
+            "панорамы","пейзажи","волны","высокогорье","джунгли","дикие пляжи","зимние пейзажи",
+            "национальные парки","перевалы","песчаные пляжи","плантации","природа",
+            "рисовые террасы","сакура","северное сияние","ущелья","красивые места"
+        ],
+        "Животные и наблюдение": [
+            "акулы","жирафы","киты","лемуры","львы","медведи","морская жизнь",
+            "наблюдение животных","наблюдение медведей","наблюдение нерп","наблюдение орлов",
+            "наблюдение птиц","нерпы","слоны","черепахи","эндемики","фотоохота",
+            "комодские вараны","пингвины","кенгуру","коалы","наблюдения за звездами","рыбы","сафари"
+        ],
+        "Культура и история": [
+            "аборигены","археология","архитектура","аулы","африканская культура","базары",
+            "буддизм","гостеприимство","дворцы","деревянное зодчество","история","караваны",
+            "кимоно","культура","медины","местные ремесла","монастыри","памятники",
+            "ремесленные мастерские","соборы","старые города","традиции","тибетская культура",
+            "церкви","чайные церемонии","этнография","этнические деревни","народные промыслы",
+            "шелковый путь","медресе","музеи","храмы"
+        ],
+        "Достопримечательности, экскурсии и особенности": [
+            "авиапрогулки","вертолетные туры","вилла на воде","дельфинарий","каналы","кинотур",
+            "Кругобайкальская железная дорога","ласточкино гнездо","листвянка","мост харбор",
+            "набережная","ольхон","опера","остров","подземная река","разводные мосты",
+            "старый город","театры","улуру","хоббитон","эрмитаж","экскурсии","гид",
+            "Мыс Доброй Надежды","Столовая гора","атласские горы","базовый лагерь Эвереста",
+            "башни Петронас","бухта Халонг","винодельни","дайв-центр","Кремль","розовый пляж","сады"
+        ],
+        "Гастрономия": [
+            "африканская кухня","бурятская кухня","вегетарианская еда","вино","виноградники",
+            "винные погреба","вьетнамская кухня","гастрономия","грибы","дегустации",
+            "дегустация вин","димсамы","кавказская кухня","карельская кухня","кафе","кофе",
+            "корейская кухня","кулинарные мастер классы","местные продукты","морепродукты",
+            "национальная кухня","пикники","плов","рестораны","рынки","специи","спринг-роллы",
+            "сыр","тайская кухня","турецкая кухня","узбекская кухня","уличная еда",
+            "утка по-пекински","хинкали","чай","чайная церемония","чайные домики",
+            "чайные плантации","шашлык","ягоды","фо-бо"
+        ],
+        "Релакс и здоровье": [
+            "горячие источники","здоровье","йога","йога медитация","медитация","минеральные воды",
+            "минеральные источники","онсэн","релакс","санаторий","сауна","спа","спокойный отдых",
+            "спокойствие","тишина","термальные источники","прогулки"
+        ],
+        "Город и развлечения": [
+            "аквапарк","аттракционы","вечерние шоу","городской","детские игры","детские площадки",
+            "детские программы","молодежь","ночная жизнь","олимпийские объекты","парки","тусовка",
+            "уютные кафе","шопинг","фестивали","клубы","аниматор","мастер-классы","керамика","сувениры"
+        ],
+        "Тип поездки": [
+            "групповой","одиночное путешествие","романтический","семейный","соло","уединение","пешие прогулки"
+        ],
+        "Размещение и сервис": [
+            "всё включено","технологичный туризм","экологичный"
+        ]
     };
-    
-    function loadTours() { /* как ранее */ }
-    function buildAllTags(tours) { /* как ранее */ }
-    function addTagVectors(tours, allTags) { /* как ранее */ }
-    function cosineSimilarity(vecA, vecB) { /* как ранее */ }
 
-    // Загрузка CSV
+    // ---------- Загрузка и обработка данных ----------
     async function loadTours() {
-        const response = await fetch('tours.csv');
-        const text = await response.text();
+        const resp = await fetch('tours.csv');
+        const text = await resp.text();
         const lines = text.split('\n');
         const headers = lines[0].split(';').map(h => h.trim());
         const tours = [];
@@ -517,57 +514,58 @@
                 if (h === 'стоимость_руб_чел' || h === 'длительность_дни') val = parseInt(val) || 0;
                 obj[h] = val;
             });
-            ['тип_группы', 'сезон', 'тип_проживания', 'список_тегов'].forEach(field => {
-                if (obj[field]) obj[field] = obj[field].split(',').map(s => s.trim()).filter(s => s);
-                else obj[field] = [];
+            ['тип_группы', 'сезон', 'тип_проживания', 'список_тегов'].forEach(f => {
+                if (obj[f] && typeof obj[f] === 'string')
+                    obj[f] = obj[f].split(',').map(s => s.trim()).filter(s => s);
+                else obj[f] = [];
             });
             tours.push(obj);
         }
         return tours;
     }
-    
+
     function buildAllTags(tours) {
-        const tagSet = new Set();
-        tours.forEach(tour => tour['список_тегов'].forEach(t => tagSet.add(t)));
-        return Array.from(tagSet).sort();
+        const set = new Set();
+        tours.forEach(t => t['список_тегов'].forEach(tg => set.add(tg)));
+        return Array.from(set).sort();
     }
-    
+
     function addTagVectors(tours, allTags) {
-        tours.forEach(tour => {
-            tour.tagVector = allTags.map(tag => tour['список_тегов'].includes(tag) ? 1 : 0);
+        tours.forEach(t => {
+            t.tagVector = allTags.map(tag => t['список_тегов'].includes(tag) ? 1 : 0);
         });
     }
-    
-    function cosineSimilarity(vecA, vecB) {
+
+    function cosineSimilarity(a, b) {
         let dot = 0, magA = 0, magB = 0;
-        for (let i = 0; i < vecA.length; i++) {
-            dot += vecA[i] * vecB[i];
-            magA += vecA[i] * vecA[i];
-            magB += vecB[i] * vecB[i];
+        for (let i = 0; i < a.length; i++) {
+            dot += a[i] * b[i];
+            magA += a[i] * a[i];
+            magB += b[i] * b[i];
         }
         if (magA === 0 || magB === 0) return 0;
         return dot / (Math.sqrt(magA) * Math.sqrt(magB));
     }
-    
+
     function buildTagCategories(allTags) {
-        const categories = {};
+        const cats = {};
         const used = new Set();
-        for (let [cat, tagList] of Object.entries(TAG_CATEGORIES_RAW)) {
-            const present = tagList.filter(t => allTags.includes(t));
+        for (let [name, list] of Object.entries(TAG_CATEGORIES_RAW)) {
+            const present = list.filter(t => allTags.includes(t));
             if (present.length) {
-                categories[cat] = present;
+                cats[name] = present;
                 present.forEach(t => used.add(t));
             }
         }
         const leftover = allTags.filter(t => !used.has(t));
-        if (leftover.length) categories["Другое"] = leftover;
-        return categories;
+        if (leftover.length) cats["Другое"] = leftover;
+        return cats;
     }
-    
-    function renderTagsAccordion(categories) {
+
+    function renderTagsAccordion(cats) {
         const container = document.getElementById('tagsAccordion');
         container.innerHTML = '';
-        for (let [catName, tags] of Object.entries(categories)) {
+        for (let [catName, tags] of Object.entries(cats)) {
             const details = document.createElement('details');
             details.className = 'tag-category';
             const summary = document.createElement('summary');
@@ -580,7 +578,8 @@
                 span.className = 'tag-item';
                 if (selectedTags.has(tag)) span.classList.add('selected');
                 span.innerHTML = `<i class="fas fa-hashtag"></i> ${tag}`;
-                span.onclick = () => {
+                span.onclick = (e) => {
+                    e.stopPropagation();
                     if (selectedTags.has(tag)) {
                         selectedTags.delete(tag);
                         span.classList.remove('selected');
@@ -595,29 +594,29 @@
             container.appendChild(details);
         }
     }
-    
-    // Создание тегов для стран/направлений
-    function renderTagOptions(container, items, selectedSet, onClick) {
-        container.innerHTML = '';
-        items.forEach(item => {
-            const span = document.createElement('span');
-            span.className = 'tag-option';
-            if (selectedSet.has(item)) span.classList.add('selected');
-            span.innerHTML = `<i class="fas fa-check-circle"></i> ${item}`;
-            span.onclick = () => onClick(item, span);
-            container.appendChild(span);
-        });
-    }
-    
+
+    // ---------- География (удобные кнопки) ----------
     let selectedCountries = new Set();
     let selectedDirections = new Set();
-    
+
     function initGeography(allCountries) {
-        const countriesContainer = document.getElementById('countriesContainer');
-        const directionsContainer = document.getElementById('directionsContainer');
+        const countriesDiv = document.getElementById('countriesContainer');
+        const dirsDiv = document.getElementById('directionsContainer');
         const directionNames = Object.values(DIRECTION_DISPLAY);
-        
-        const updateCountry = (country, el) => {
+
+        const render = (container, items, selectedSet, onClick) => {
+            container.innerHTML = '';
+            items.forEach(item => {
+                const btn = document.createElement('span');
+                btn.className = 'tag-option';
+                if (selectedSet.has(item)) btn.classList.add('selected');
+                btn.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${item}`;
+                btn.onclick = () => onClick(item, btn);
+                container.appendChild(btn);
+            });
+        };
+
+        const toggleCountry = (country, el) => {
             if (selectedCountries.has(country)) {
                 selectedCountries.delete(country);
                 el.classList.remove('selected');
@@ -626,7 +625,7 @@
                 el.classList.add('selected');
             }
         };
-        const updateDirection = (dir, el) => {
+        const toggleDirection = (dir, el) => {
             if (selectedDirections.has(dir)) {
                 selectedDirections.delete(dir);
                 el.classList.remove('selected');
@@ -635,56 +634,44 @@
                 el.classList.add('selected');
             }
         };
-        renderTagOptions(countriesContainer, allCountries, selectedCountries, updateCountry);
-        renderTagOptions(directionsContainer, directionNames, selectedDirections, updateDirection);
-        
-        // Переключение между режимами
+
+        render(countriesDiv, allCountries, selectedCountries, toggleCountry);
+        render(dirsDiv, directionNames, selectedDirections, toggleDirection);
+
         document.querySelectorAll('input[name="countryChoice"]').forEach(radio => {
             radio.addEventListener('change', (e) => {
                 const isCountries = e.target.value === 'countries';
-                countriesContainer.style.display = isCountries ? 'block' : 'none';
-                directionsContainer.style.display = isCountries ? 'none' : 'block';
+                countriesDiv.style.display = isCountries ? 'flex' : 'none';
+                dirsDiv.style.display = isCountries ? 'none' : 'flex';
             });
         });
     }
-    
+
     function getSelectedCountries() {
         const choice = document.querySelector('input[name="countryChoice"]:checked').value;
-        if (choice === 'countries') {
-            return Array.from(selectedCountries);
-        } else {
-            const countries = [];
-            for (let dirName of selectedDirections) {
-                const key = Object.keys(DIRECTION_DISPLAY).find(k => DIRECTION_DISPLAY[k] === dirName);
-                if (key && DIRECTION_MAP[key]) countries.push(...DIRECTION_MAP[key]);
-            }
-            return [...new Set(countries)];
+        if (choice === 'countries') return Array.from(selectedCountries);
+        const countries = [];
+        for (let dir of selectedDirections) {
+            const key = Object.keys(DIRECTION_DISPLAY).find(k => DIRECTION_DISPLAY[k] === dir);
+            if (key && DIRECTION_MAP[key]) countries.push(...DIRECTION_MAP[key]);
         }
+        return [...new Set(countries)];
     }
-    
-    function recommendTours(userPrefs) {
+
+    // ---------- Рекомендация ----------
+    function recommendTours(prefs) {
         let filtered = [...toursData];
-        if (userPrefs.countries.length) {
-            filtered = filtered.filter(t => userPrefs.countries.includes(t['страна']));
-        }
-        if (userPrefs.budgetMax) filtered = filtered.filter(t => t['стоимость_руб_чел'] <= userPrefs.budgetMax);
-        filtered = filtered.filter(t => t['длительность_дни'] >= userPrefs.durMin && t['длительность_дни'] <= userPrefs.durMax);
-        if (userPrefs.seasons.length) {
-            filtered = filtered.filter(t => t['сезон'].some(s => userPrefs.seasons.includes(s)));
-        }
-        if (userPrefs.guide !== null) {
-            filtered = filtered.filter(t => t['наличие_гида'] === userPrefs.guide);
-        }
-        if (userPrefs.groupType) {
-            filtered = filtered.filter(t => t['тип_группы'].includes(userPrefs.groupType));
-        }
-        if (userPrefs.accommodation.length) {
-            filtered = filtered.filter(t => t['тип_проживания'].some(p => userPrefs.accommodation.includes(p)));
-        }
-        if (filtered.length === 0) return [];
-        
-        if (userPrefs.selectedTags.length > 0) {
-            const userVec = allTagsList.map(tag => userPrefs.selectedTags.includes(tag) ? 1 : 0);
+        if (prefs.countries.length) filtered = filtered.filter(t => prefs.countries.includes(t['страна']));
+        if (prefs.budgetMax) filtered = filtered.filter(t => t['стоимость_руб_чел'] <= prefs.budgetMax);
+        filtered = filtered.filter(t => t['длительность_дни'] >= prefs.durMin && t['длительность_дни'] <= prefs.durMax);
+        if (prefs.seasons.length) filtered = filtered.filter(t => t['сезон'].some(s => prefs.seasons.includes(s)));
+        if (prefs.guide !== null) filtered = filtered.filter(t => t['наличие_гида'] === prefs.guide);
+        if (prefs.groupType) filtered = filtered.filter(t => t['тип_группы'].includes(prefs.groupType));
+        if (prefs.accommodation.length) filtered = filtered.filter(t => t['тип_проживания'].some(p => prefs.accommodation.includes(p)));
+        if (!filtered.length) return [];
+
+        if (prefs.selectedTags.length) {
+            const userVec = allTagsList.map(tag => prefs.selectedTags.includes(tag) ? 1 : 0);
             filtered.forEach(t => { t.similarity = cosineSimilarity(userVec, t.tagVector); });
             filtered.sort((a,b) => b.similarity - a.similarity);
         } else {
@@ -693,17 +680,17 @@
         }
         return filtered.slice(0, 5);
     }
-    
+
     function displayTours(tours) {
         const container = document.getElementById('resultsContainer');
         if (!tours.length) {
-            container.innerHTML = '<div class="info-message"><i class="fas fa-exclamation-triangle"></i> Нет туров, подходящих под ваши критерии. Расширьте параметры поиска.</div>';
+            container.innerHTML = '<div class="info-message"><i class="fas fa-info-circle"></i> Нет туров, подходящих под ваши критерии. Расширьте параметры поиска.</div>';
             return;
         }
         let html = '';
         tours.forEach(tour => {
             const location = (tour['страна'] === 'Россия' && tour['регион']) ? `Россия, ${tour['регион']}` : tour['страна'];
-            const tagsPreview = tour['список_тегов'].slice(0,6).map(t => `<span class="tour-tag">${escapeHtml(t)}</span>`).join('');
+            const allTagsHtml = tour['список_тегов'].map(t => `<span class="tour-tag">${escapeHtml(t)}</span>`).join('');
             html += `
                 <div class="tour-card" data-tour-id="${tour.id}">
                     <div class="tour-header">
@@ -715,7 +702,7 @@
                         <span><i class="fas fa-ruble-sign"></i> ${tour['стоимость_руб_чел'].toLocaleString()} руб/чел</span>
                         <span><i class="fas fa-home"></i> ${tour['тип_проживания'].slice(0,2).join(', ')}</span>
                     </div>
-                    <div class="tour-tags">${tagsPreview}</div>
+                    <div class="tour-tags">${allTagsHtml}</div>
                     <div class="rating-slider">
                         <label><i class="fas fa-star"></i> Оценка (1-10):</label>
                         <input type="range" min="1" max="10" value="5" class="rating-input" data-id="${tour.id}">
@@ -727,9 +714,8 @@
         container.innerHTML = html;
         document.querySelectorAll('.rating-input').forEach(slider => {
             slider.addEventListener('input', (e) => {
-                const val = e.target.value;
                 const span = document.querySelector(`.rating-value[data-id="${slider.dataset.id}"]`);
-                if (span) span.textContent = val;
+                if (span) span.innerText = e.target.value;
             });
         });
         if (!document.getElementById('globalSaveBtn')) {
@@ -741,28 +727,31 @@
             container.appendChild(saveBtn);
         }
     }
-    
-    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;});}
-    
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, m => (m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'));
+    }
+
     async function saveAllRatings() {
-        const userPrefs = collectUserPrefs();
+        const prefs = collectUserPrefs();
         const ratings = [];
         document.querySelectorAll('.tour-card').forEach(card => {
-            const tourId = card.dataset.tourId;
+            const tid = card.dataset.tourId;
             const slider = card.querySelector('.rating-input');
             const rating = slider ? slider.value : null;
-            const tour = toursData.find(t => t.id == tourId);
+            const tour = toursData.find(t => t.id == tid);
             if (tour && rating) {
                 ratings.push({
-                    user_budget: userPrefs.budgetMax,
-                    user_duration_min: userPrefs.durMin,
-                    user_duration_max: userPrefs.durMax,
-                    user_seasons: userPrefs.seasons.join(','),
-                    user_guide: userPrefs.guide,
-                    user_group_type: userPrefs.groupType || '',
-                    user_accommodation: userPrefs.accommodation.join(','),
-                    user_countries: (userPrefs.countries || []).join(','),
-                    user_tags: userPrefs.selectedTags.join(','),
+                    user_budget: prefs.budgetMax,
+                    user_duration_min: prefs.durMin,
+                    user_duration_max: prefs.durMax,
+                    user_seasons: prefs.seasons.join(','),
+                    user_guide: prefs.guide,
+                    user_group_type: prefs.groupType || '',
+                    user_accommodation: prefs.accommodation.join(','),
+                    user_countries: (prefs.countries || []).join(','),
+                    user_tags: prefs.selectedTags.join(','),
                     tour_id: tour.id,
                     tour_name: tour['название'],
                     tour_country: tour['страна'],
@@ -772,7 +761,8 @@
                 });
             }
         });
-        if (ratings.length === 0) { alert('Нет оценок для сохранения'); return; }
+        if (!ratings.length) { alert('Нет оценок для сохранения'); return; }
+
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx7vcePJNfkOEplzW7qt-HbKK6luJ2yFQizAGmycmLjX9rBte02dHV01-MiKek102k/exec'; 
         try {
             for (let r of ratings) {
@@ -784,9 +774,12 @@
                 });
             }
             alert('Оценки сохранены! Спасибо за обратную связь.');
-        } catch(e) { alert('Ошибка: ' + e.message); }
+        } catch(e) {
+            console.error(e);
+            alert('Ошибка при сохранении: ' + e.message);
+        }
     }
-    
+
     function collectUserPrefs() {
         const seasons = Array.from(document.querySelectorAll('#seasonsGroup input:checked')).map(cb => cb.value);
         const guideRadio = document.querySelector('input[name="guide"]:checked');
@@ -799,28 +792,28 @@
             budgetMax: parseInt(document.getElementById('budget').value) || Infinity,
             durMin: parseInt(document.getElementById('durMin').value) || 0,
             durMax: parseInt(document.getElementById('durMax').value) || 999,
-            seasons: seasons,
+            seasons,
             guide: guideVal,
             groupType: document.getElementById('groupType').value,
-            accommodation: accommodation,
+            accommodation,
             selectedTags: Array.from(selectedTags)
         };
     }
-    
+
     async function performSearch() {
         const prefs = collectUserPrefs();
         const recs = recommendTours(prefs);
         displayTours(recs);
     }
-    
+
     window.onload = async () => {
         toursData = await loadTours();
         allTagsList = buildAllTags(toursData);
         addTagVectors(toursData, allTagsList);
-        const categories = buildTagCategories(allTagsList);
-        renderTagsAccordion(categories);
-        const allCountries = [...new Set(toursData.map(t => t['страна']))].sort();
-        initGeography(allCountries);
+        const cats = buildTagCategories(allTagsList);
+        renderTagsAccordion(cats);
+        const countries = [...new Set(toursData.map(t => t['страна']))].sort();
+        initGeography(countries);
         document.getElementById('searchBtn').onclick = performSearch;
         performSearch();
     };
