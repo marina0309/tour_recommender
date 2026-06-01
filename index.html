@@ -158,9 +158,14 @@
             }
             .radio-group label input,
             .checkbox-group label input {
+                width: 4px;      /* задаём реальную ширину */
+                height: 14px;     /* и высоту */
                 margin: 0;
-                margin-right: 0;
-                transform: scale(0.40);
+                margin-right: 2px;  /* можно добавить совсем маленький отступ, если нужно */
+                padding: 0;
+                flex-shrink: 0;
+                transform: none;
+                vertical-align: middle;
             }
             .tag-group {
                 gap: 4px;
